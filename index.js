@@ -5,7 +5,7 @@ import AttacherViews from './views/AttacherViews';
 import {renderDOM, renderView} from './views/render';
 import './index.css';
 import * as backend from './build/index.main.mjs';
-import { loadStdlib } from '@reach-sh/stdlib';
+import { loadStdlib, ALGO_MyAlgoConnect as MyAlgoConnect } from '@reach-sh/stdlib';
 const reach = loadStdlib(process.env);
 
 const guessedToInt = {'HIGH':2,'MEDIUM':1,'LOW':0};
@@ -19,6 +19,8 @@ class App extends React.Component {
     this.state={view: 'ConnectAccount',...defaults}
   }
   async componentDidMount(){
+    reach.setWalletFallback(reach.walletFallback({
+  providerEnv: 'TestNet', MyAlgoConnect }));
     const acc = await reach.getDefaultAccount();
     const balAtomic = await reach.balanceOf(acc);
     const bal = reach.formatCurrency(balAtomic,4);
