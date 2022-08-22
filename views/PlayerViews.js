@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 //add draw
 const exports = {};
 
@@ -7,60 +7,53 @@ const exports = {};
 
 exports.GetHand = class extends React.Component {
   render() {
-    const {parent, playable, hand} = this.props;
+    const { parent, playable, hand } = this.props;
     return (
       <div>
-        {hand ? 'It was a draw! Pick again.' : ''}
+        {hand ? "It was a draw! Pick again." : ""}
         <br />
-        {!playable ? 'Please wait...' : ''}
+        {!playable ? "Please wait..." : ""}
         <br />
+        <button disabled={!playable} onClick={() => parent.playHand("ROCK")}>
+          Rock
+        </button>
+        <button disabled={!playable} onClick={() => parent.playHand("PAPER")}>
+          Paper
+        </button>
         <button
           disabled={!playable}
-          onClick={() => parent.playHand('ROCK')}
-        >Rock</button>
-        <button
-          disabled={!playable}
-          onClick={() => parent.playHand('PAPER')}
-        >Paper</button>
-        <button
-          disabled={!playable}
-          onClick={() => parent.playHand('SCISSORS')}
-        >Scissors</button>
+          onClick={() => parent.playHand("SCISSORS")}
+        >
+          Scissors
+        </button>
       </div>
     );
   }
-}
+};
 
 exports.WaitingForResults = class extends React.Component {
   render() {
-    return (
-      <div>
-        Waiting for results...
-      </div>
-    );
+    return <div>Waiting for results...</div>;
   }
-}
+};
 
 exports.Done = class extends React.Component {
   render() {
-    const {outcome} = this.props;
+    const { outcome } = this.props;
     return (
       <div>
         Thank you for playing. The outcome of this game was:
-        <br />{outcome || 'Unknown'}
+        <br />
+        {outcome || "Unknown"}
       </div>
     );
   }
-}
+};
 
 exports.Timeout = class extends React.Component {
   render() {
-    return (
-      <div>
-        There's been a timeout. (Someone took too long.)
-      </div>
-    );
+    return <div>There's been a timeout. (Someone took too long.)</div>;
   }
-}
+};
 
 export default exports;
