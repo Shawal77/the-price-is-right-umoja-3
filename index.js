@@ -11,7 +11,7 @@ import {
 } from "@reach-sh/stdlib";
 const reach = loadStdlib(process.env);
 
-const guessedToInt = { HIGH: 2, MEDIUM: 1, LOW: 0 };
+const GUESSEDPRICE = ["High", "Medium", "Low"];
 const resultsToInt = ["ALICE_WIN", "DRAW", "BOB_WINS"];
 const { standardUnit } = reach;
 const defaults = { defaultFundAmt: "10", defaultWager: "3", standardUnit };
@@ -68,6 +68,7 @@ class Deal extends React.Component {
         view: "GetPriceGuess",
         playable: true,
         resolvepriceGuessP,
+        // guessOutcome: GUESSEDPRICE[guessedPrice],
       });
     });
     this.setState({ view: "WaitingForResults", priceGuess }); //which occurs after the Promise is resolved, we set the component state to display Waiting for results display.379

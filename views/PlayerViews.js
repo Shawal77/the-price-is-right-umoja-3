@@ -5,9 +5,10 @@ const exports = {};
 // Player views must be extended.
 // It does not have its own Wrapper view.
 
-exports.GetHand = class extends React.Component {
+exports.GetPriceGuess = class extends React.Component {
   render() {
     const { parent, playable, hand } = this.props;
+    console.log(parent,playable, hand)
     return (
       <div>
         {hand ? "It was a draw! Pick again." : ""}
