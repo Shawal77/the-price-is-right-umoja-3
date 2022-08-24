@@ -28,7 +28,7 @@ exports.SetWager = class extends React.Component {
           type="number"
           placeholder={defaultWager}
           onChange={(e) => this.setState({ wager: e.currentTarget.value })}
-        />{" "}
+        />
         {standardUnit}
         <br />
         <button onClick={() => parent.setWager(wager)}>Set wager</button>

@@ -8,24 +8,15 @@ const exports = {};
 exports.GetPriceGuess = class extends React.Component {
   render() {
     const { parent, playable, hand } = this.props;
-    console.log(parent,playable, hand)
+    console.log(parent, playable, hand);
     return (
       <div>
         {hand ? "It was a draw! Pick again." : ""}
         <br />
         {!playable ? "Please wait..." : ""}
         <br />
-        <button disabled={!playable} onClick={() => parent.playHand("ROCK")}>
-          Rock
-        </button>
-        <button disabled={!playable} onClick={() => parent.playHand("PAPER")}>
-          Paper
-        </button>
-        <button
-          disabled={!playable}
-          onClick={() => parent.playHand("SCISSORS")}
-        >
-          Scissors
+        <button disabled={!playable} onClick={() => parent.guessPrice()}>
+          Guess
         </button>
       </div>
     );
@@ -34,7 +25,12 @@ exports.GetPriceGuess = class extends React.Component {
 
 exports.WaitingForResults = class extends React.Component {
   render() {
-    return <div>Waiting for results...</div>;
+    return (
+      <div>
+        Waiting for results... <br />
+        You guessed {this.props.guessOutcome}
+      </div>
+    );
   }
 };
 

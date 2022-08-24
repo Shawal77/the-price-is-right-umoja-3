@@ -12,7 +12,7 @@ import {
 const reach = loadStdlib(process.env);
 
 const GUESSEDPRICE = ["High", "Medium", "Low"];
-const resultsToInt = ["ALICE_WIN", "DRAW", "BOB_WINS"];
+const RESULT = ["ALICE_WIN", "DRAW", "BOB_WINS"];
 const { standardUnit } = reach;
 const defaults = { defaultFundAmt: "10", defaultWager: "3", standardUnit };
 
@@ -68,19 +68,23 @@ class Deal extends React.Component {
         view: "GetPriceGuess",
         playable: true,
         resolvepriceGuessP,
-        // guessOutcome: GUESSEDPRICE[guessedPrice],
       });
     });
-    this.setState({ view: "WaitingForResults", priceGuess }); //which occurs after the Promise is resolved, we set the component state to display Waiting for results display.379
+    this.setState({
+      view: "WaitingForResults",
+      priceGuess,
+      guessOutcome: GUESSEDPRICE[priceGuess],
+    }); //which occurs after the Promise is resolved, we set the component state to display Waiting for results display.379
     return priceGuess;
   }
   seeResult(i) {
-    this.setState({ view: "Done", outcome: intToOutcome[i] });
+    this.setState({ view: "Done", outcome: RESULT[i] });
   } //we provide the seeOutcome and informTimeout callbacks, which set the component state to display Done display and Timeout display, respectively.3
   informTimeout() {
     this.setState({ view: "Timeout" });
   }
-  playpriceGuess(priceGuess) {
+  guessPrice() {
+    const priceGuess = Math.floor(Math.random() * 3);
     this.state.resolvepriceGuessP(priceGuess);
   } //On line 53, we define what happens when the user guesses a number The Promise from line 45 is resolved
   informDraw() {
