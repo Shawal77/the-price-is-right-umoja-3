@@ -8,15 +8,34 @@ const exports = {};
 exports.GetPriceGuess = class extends React.Component {
   render() {
     const { parent, playable, hand } = this.props;
-    console.log(parent, playable, hand);
     return (
       <div>
-        {hand ? "It was a draw! Pick again." : ""}
+        {hand ? "It was a draw! play again." : ""}
         <br />
         {!playable ? "Please wait..." : ""}
         <br />
-        <button disabled={!playable} onClick={() => parent.guessPrice()}>
-          Guess
+        <button
+          style={{ paddingInline: 100, marginRight: 10 }}
+          disabled={!playable}
+          onClick={() => parent.guessPrice()}
+        >
+          Guess{" "}
+        </button>
+        <button
+          style={{ paddingInline: 100 }}
+          disabled={!playable}
+          onClick={() => parent.guessPrice()}
+        >
+          {" "}
+          Guess{" "}
+        </button>
+        <button
+          style={{ paddingInline: 100 }}
+          disabled={!playable}
+          onClick={() => parent.guessPrice()}
+        >
+          {" "}
+          Guess{" "}
         </button>
       </div>
     );
@@ -37,13 +56,7 @@ exports.WaitingForResults = class extends React.Component {
 exports.Done = class extends React.Component {
   render() {
     const { outcome } = this.props;
-    return (
-      <div>
-        Thank you for playing. The outcome of this game was:
-        <br />
-        {outcome || "Unknown"}
-      </div>
-    );
+    return <div>{`The result is ${outcome}` || "Unknown"}</div>;
   }
 };
 

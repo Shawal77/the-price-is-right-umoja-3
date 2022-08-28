@@ -4,9 +4,14 @@ import DeployerViews from "./views/DeployerViews";
 import AttacherViews from "./views/AttacherViews";
 import { renderDOM, renderView } from "./views/render";
 import "./index.css";
+import { ALGO_MyAlgoConnect as MyAlgoConnect } from "@reach-sh/stdlib";
 import * as backend from "./build/index.main.mjs";
 import { loadStdlib } from "@reach-sh/stdlib";
-const reach = loadStdlib(process.env);
+
+const reach = loadStdlib("ALGO");
+reach.setWalletFallback(
+  reach.walletFallback({ providerEnv: "TestNet", MyAlgoConnect })
+);
 
 const GUESSEDPRICE = ["High", "Medium", "Low"];
 const RESULT = ["ALICE_WIN", "DRAW", "BOB_WINS"];
@@ -19,8 +24,8 @@ class App extends React.Component {
     this.state = { view: "ConnectAccount", ...defaults };
   }
   async componentDidMount() {
-    const startingBalance = reach.parseCurrency(100);
-    const acc = await reach.newTestAccount(startingBalance);
+    // const startingBalance = reach.parseCurrency(100);
+    const acc = await reach.getDefaultAccount();
     const balAtomic = await reach.balanceOf(acc);
     const bal = reach.formatCurrency(balAtomic, 4);
     this.setState({ acc, bal });
@@ -70,7 +75,7 @@ class Deal extends React.Component {
     return priceGuess;
   }
   seeResult(i) {
-    this.setState({ view: "Done", outcome: RESULT[i] });
+    this.setState({ view: "Done", result: RESULT[i] });
   } //we provide the seeOutcome and informTimeout callbacks, which set the component state to display Done display and Timeout display, respectively.3
   informTimeout() {
     this.setState({ view: "Timeout" });
@@ -136,78 +141,3 @@ class Attacher extends Deal {
   } //On line 93, we render the appropriate view from rps-9-web/views/AttacherViews.js
 }
 renderDOM(<App />);
-/*
-import React from 'react'
-import {loadStdlib} from '@reach-sh/stdlib';
-import * as backend from './build/index.main.mjs';
-const stdlib = loadStdlib(process.env);
-
-const startingBalance = stdlib.parseCurrency(100);
-
-const [ accAlice, accBob ] = await stdlib.newTestAccounts(2, startingBalance);
-console.log('Hello, Alice and Bob!');
-
-//formatting the currency to a 4 decemal place...........
-const fmt = (x) => stdlib.formatCurrency(x, 4);
-
-const getBalance = async (who) => fmt(await stdlib.balanceOf(who));
-
-//Getting the balace before the game starts for alice and bob
-const AliceBeforeBalance = await getBalance(accAlice);
-const BobBeforeBalance = await getBalance(accBob);
-
-
-console.log('Launching...');
-const ctcAlice = accAlice.contract(backend);
-const ctcBob = accBob.contract(backend, ctcAlice.getInfo());
-
-const GUESSEDPRICE = ['High', 'Medium', 'Low'];
-const RESULT = ['Alice wins', 'Draw', 'Bob wins'];
-
-
-
-const Deal = (Who) => ({
-  ...stdlib.hasRandom,
-    guessedPrice: () => {
-      const guessedPrice =  Math.floor(Math.random() * 3);
-      console.log(`${Who} guessed ${GUESSEDPRICE[guessedPrice]}`)
-      return guessedPrice;
-    },
-    seeResult: (result) => {
-    console.log(`${Who} saw the ${RESULT[result]}`)
-}
-
-});
-
-console.log('Starting backends...');
-
-await Promise.all([
-  backend.Alice(ctcAlice, {
-    ...stdlib.hasRandom,
-    // implement Alice's interact object here
-    ...Deal('Alice'),
-     wager: stdlib.parseCurrency(5),
-  }),
-  backend.Bob(ctcBob, {
-    ...stdlib.hasRandom,
-    // implement Bob's interact object here
-    ...Deal('Bob'),
-    acceptWager:  (amt) => {
-      console.log(`Bob accepts the ${fmt(amt)}`)
-    }
-  }),
-]);
-
-//getting the balance of bob and alice after wager has been placed.
-const afteAclice = await getBalance(accAlice);
-const afterBob = await getBalance(accBob);
-
-//remitting funds after the winner has been decalred
-
-console.log(`Alice moved from ${AliceBeforeBalance} to ${afteAclice}`)
-console.log(`Bob moved from ${BobBeforeBalance} to ${afterBob}`)
-
-
-
-console.log('Goodbye, Alice and Bob!');
-*/

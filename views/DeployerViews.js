@@ -11,7 +11,6 @@ exports.Wrapper = class extends React.Component {
     const { content } = this.props;
     return (
       <div className="Deployer">
-        <h2>Deployer (Alice)</h2>
         {content}
       </div>
     );
@@ -23,15 +22,14 @@ exports.SetWager = class extends React.Component {
     const { parent, defaultWager, standardUnit } = this.props;
     const wager = (this.state || {}).wager || defaultWager;
     return (
-      <div>
+      <div style={{color: "yellow"}}>
+        Select the number of Algo
         <input
           type="number"
           placeholder={defaultWager}
           onChange={(e) => this.setState({ wager: e.currentTarget.value })}
         />
-        {standardUnit}
-        <br />
-        <button onClick={() => parent.setWager(wager)}>Set wager</button>
+        <button style={{ paddingInline: 50}}  onClick={() => parent.setWager(wager)}>Send wager</button>
       </div>
     );
   }
@@ -41,10 +39,10 @@ exports.Deploy = class extends React.Component {
   render() {
     const { parent, wager, standardUnit } = this.props;
     return (
-      <div>
-        Wager (pay to deploy): <strong>{wager}</strong> {standardUnit}
+      <div >
+        Deploy with : <strong>{wager}</strong> {standardUnit}
         <br />
-        <button onClick={() => parent.deploy()}>Deploy</button>
+        <button style={{paddingInline: 200 }} onClick={() => parent.deploy()}>Deploy</button>
       </div>
     );
   }
@@ -74,7 +72,7 @@ exports.WaitingForAttacher = class extends React.Component {
       <div>
         Waiting for Attacher to join...
         <br /> Please give them this contract info:
-        <pre className="ContractInfo">{ctcInfoStr}</pre>
+        <textarea className="ContractInfo">{ctcInfoStr}</textarea>
         <button onClick={(e) => this.copyToClipboard(e.currentTarget)}>
           Copy to clipboard
         </button>
@@ -84,3 +82,4 @@ exports.WaitingForAttacher = class extends React.Component {
 };
 
 export default exports;
+

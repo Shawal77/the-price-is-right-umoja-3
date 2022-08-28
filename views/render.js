@@ -13,7 +13,6 @@ export function renderView(parent, Views) {
   const { view, ContentView } = parent.state;
   const View = view === "Wrapper" ? ContentView : Views[view];
   const Wrapper = Views["Wrapper"];
-  console.log(View, view, parent, Views);
   const props = { ...parent.props, ...parent.state, parent };
   const content = <View {...props} />;
   return <Wrapper {...{ content }} />;

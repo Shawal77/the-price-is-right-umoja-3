@@ -1,14 +1,6 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  /* border: solid 1px;
-  border-radius: 25px;
-  margin: 10px; */
+  font-family: "Courier New", Courier, monospace;
 }
 
 code {
@@ -20,14 +12,14 @@ code {
 }
 
 .App-header {
-  background-color: whitesmoke;
+  background-color: rgb(7, 3, 3);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  /* color: #f0f; */
+  color: aliceblue;
 
   border: none;
 }
@@ -48,10 +40,18 @@ button {
 }
 
 textarea {
-  font-size: calc(10px + 2vmin);
+  width: 100%;
+  height: 100;
+  padding: 40px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  resize: none;
 }
 
-.ContractInfo {
+/* .ContractInfo {
   font-size: calc(10px + 1vmin);
   text-align: left;
   width: 90vw;
@@ -62,4 +62,45 @@ textarea {
   border: solid 1px;
   border-radius: 25px;
   padding: auto;
+} */
+
+button {
+  color: #d6c316;
+  background-color: transparent;
+  border: 1px solid #65b5f6;
+  border-radius: 4px;
+  padding: 0 16px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+  transform: scale(1.1);
+}
+
+h3 {
+  animation-name: example;
+  animation-duration: 4s;
+}
+
+@keyframes example {
+  from {
+    color: red;
+  }
+  to {
+    color: yellow;
+  }
+}
+
+.personal {
+  animation: header 4s 4s;
+}
+
+@keyframes header {
+  from {
+    color: red;
+  }
+  to {
+    color: yellow;
+  }
 }

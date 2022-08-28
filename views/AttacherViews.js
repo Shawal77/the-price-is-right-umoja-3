@@ -6,12 +6,7 @@ const exports = { ...PlayerViews };
 exports.Wrapper = class extends React.Component {
   render() {
     const { content } = this.props;
-    return (
-      <div className="Attacher">
-        <h2>Attacher (Bob)</h2>
-        {content}
-      </div>
-    );
+    return <div className="Attacher">{content}</div>;
   }
 };
 
@@ -21,20 +16,22 @@ exports.Attach = class extends React.Component {
     const { ctcInfoStr } = this.state || {};
     return (
       <div>
-        Please paste the contract info to attach to:
+        Please paste the contract info
         <br />
         <textarea
           spellCheck="false"
-          className="ContractInfo"
+          wrap="off"
           onChange={(e) => this.setState({ ctcInfoStr: e.currentTarget.value })}
           placeholder="{}"
         />
         <br />
         <button
+          style={{ paddingInline: 102 }}
           disabled={!ctcInfoStr}
           onClick={() => parent.attach(ctcInfoStr)}
         >
-          Attach
+          {" "}
+          Connect to the contract{" "}
         </button>
       </div>
     );
@@ -72,13 +69,7 @@ exports.AcceptTerms = class extends React.Component {
 
 exports.WaitingForTurn = class extends React.Component {
   render() {
-    return (
-      <div>
-        Waiting for the other player...
-        <br />
-        Think about which move you want to play.
-      </div>
-    );
+    return <div>Waiting for the other player to pick a guess...</div>;
   }
 };
 
